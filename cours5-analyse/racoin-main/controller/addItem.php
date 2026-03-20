@@ -147,8 +147,7 @@ class addItem{
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
 
-            $template = $twig->loadTemplate("add-error.html.twig");
-            echo $template->render(array(
+            echo $twig->render("add-error.html.twig", array(
                                     "breadcrumb" => $menu,
                                     "chemin" => $chemin,
                                     "errors" => $errors)
@@ -177,8 +176,7 @@ class addItem{
             $annonceur->annonce()->save($annonce);
 
 
-            $template = $twig->loadTemplate("add-confirm.html.twig");
-            echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin));
+            echo $twig->render("add-confirm.html.twig", array("breadcrumb" => $menu, "chemin" => $chemin));
         }
     }
 }

@@ -8,18 +8,16 @@ use model\Categorie;
 class Search {
 
     function show($twig, $menu, $chemin, $cat) {
-        $template = $twig->loadTemplate("search.html.twig");
         $menu = array(
             array('href' => $chemin,
                 'text' => 'Acceuil'),
             array('href' => $chemin."/search",
                 'text' => "Recherche")
         );
-        echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat));
+        echo $twig->render("search.html.twig", array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat));
     }
 
     function research($array, $twig, $menu, $chemin, $cat) {
-        $template = $twig->loadTemplate("index.html.twig");
         $menu = array(
             array('href' => $chemin,
                 'text' => 'Acceuil'),
@@ -70,7 +68,7 @@ class Search {
             $annonce = $query->get();
         }
 
-        echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "annonces" => $annonce, "categories" => $cat));
+        echo $twig->render("index.html.twig", array("breadcrumb" => $menu, "chemin" => $chemin, "annonces" => $annonce, "categories" => $cat));
 
     }
 

@@ -36,7 +36,6 @@ class getCategorie {
     }
 
     public function displayCategorie($twig, $menu, $chemin, $cat, $n) {
-        $template = $twig->loadTemplate("index.html.twig");
         $menu = array(
             array('href' => $chemin,
                 'text' => 'Acceuil'),
@@ -45,7 +44,7 @@ class getCategorie {
         );
 
         $this->getCategorieContent($chemin, $n);
-        echo $template->render(array(
+        echo $twig->render("index.html.twig", array(
             "breadcrumb" => $menu,
             "chemin" => $chemin,
             "categories" => $cat,
