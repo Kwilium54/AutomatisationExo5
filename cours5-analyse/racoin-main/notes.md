@@ -52,3 +52,10 @@ Pour faire tourner le projet :
 
 ## Actions réalisées
 
+### Mise en place de l'environnement local
+
+- Ajout d'un service MySQL 8 dans `docker-compose.yml` : le `docker-compose` d'origine ne contenait qu'un service PHP sans base de données, l'application ne pouvait donc pas démarrer.
+- Les fichiers SQL sont montés automatiquement dans `/docker-entrypoint-initdb.d/` : la BDD est initialisée au premier `docker compose up` sans manipulation manuelle.
+- Création de `config/config.ini` (ignoré par git) et d'un `config/config.ini.example` à committer comme référence.
+- Mise à jour du `README.md` avec les instructions de démarrage.
+
