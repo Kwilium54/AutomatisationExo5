@@ -59,3 +59,10 @@ Pour faire tourner le projet :
 - Création de `config/config.ini` (ignoré par git) et d'un `config/config.ini.example` à committer comme référence.
 - Mise à jour du `README.md` avec les instructions de démarrage.
 
+### Corrections de bugs et sécurité
+
+- **Paramètres inversés dans `item::edit()`** : dans `index.php`, l'appel passait `$id` avant `$allPostVars` alors que la méthode attend l'inverse — la modification d'annonce échouait systématiquement.
+- **Clé primaire `ApiKey`** : le modèle déclarait `id_key` alors que la colonne en BDD s'appelle `id_apikey` — la génération de clé API ne fonctionnait pas.
+- **Token de session** : remplacement de `md5(uniqid(rand(), TRUE))` par `bin2hex(random_bytes(16))` — l'ancienne méthode n'est pas cryptographiquement sûre.
+- **Fonction `isEmail()` en double** : définie dans `addItem` et dans `item`, ce qui pouvait causer une fatal error. Remplacée par `filter_var($email, FILTER_VALIDATE_EMAIL)` dans les deux cas, ce qui est aussi plus fiable.
+

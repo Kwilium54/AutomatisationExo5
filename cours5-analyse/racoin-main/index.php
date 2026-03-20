@@ -24,7 +24,7 @@ if (!isset($_SESSION)) {
 }
 
 if (!isset($_SESSION['token'])) {
-    $token = md5(uniqid(rand(), TRUE));
+    $token = bin2hex(random_bytes(16));
     $_SESSION['token'] = $token;
     $_SESSION['token_time'] = time();
 } else {
@@ -85,7 +85,7 @@ $app->post('/item/:id/edit', function ($id) use ($twig, $app, $menu, $chemin, $c
 $app->map('/item/:id/confirm', function ($id) use ($twig, $app, $menu, $chemin) {
     $allPostVars = $app->request->post();
     $item = new \controller\item();
-    $item->edit($twig,$menu,$chemin, $id, $allPostVars);
+    $item->edit($twig,$menu,$chemin, $allPostVars, $id);
 })->name('confirm')->via('GET', 'POST');
 
 $app->get('/search/', function () use ($twig, $menu, $chemin, $cat) {
