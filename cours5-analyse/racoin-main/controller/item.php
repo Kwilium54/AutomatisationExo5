@@ -30,8 +30,7 @@ class item {
         $this->annonceur = Annonceur::find($this->annonce->id_annonceur);
         $this->departement = Departement::find($this->annonce->id_departement );
         $this->photo = Photo::where('id_annonce', '=', $n)->get();
-        $template = $twig->loadTemplate("item.html.twig");
-        echo $template->render(array("breadcrumb" => $menu,
+        echo $twig->render("item.html.twig", array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce,
             "annonceur" => $this->annonceur,
@@ -46,8 +45,7 @@ class item {
             echo "404";
             return;
         }
-        $template = $twig->loadTemplate("delGet.html.twig");
-        echo $template->render(array("breadcrumb" => $menu,
+        echo $twig->render("delGet.html.twig", array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce));
     }
@@ -63,8 +61,7 @@ class item {
 
         }
 
-        $template = $twig->loadTemplate("delPost.html.twig");
-        echo $template->render(array("breadcrumb" => $menu,
+        echo $twig->render("delPost.html.twig", array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce,
             "pass" => $reponse,
@@ -77,8 +74,7 @@ class item {
             echo "404";
             return;
         }
-        $template = $twig->loadTemplate("modifyGet.html.twig");
-        echo $template->render(array("breadcrumb" => $menu,
+        echo $twig->render("modifyGet.html.twig", array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce));
     }
@@ -95,8 +91,7 @@ class item {
 
         }
 
-        $template = $twig->loadTemplate("modifyPost.html.twig");
-        echo $template->render(array("breadcrumb" => $menu,
+        echo $twig->render("modifyPost.html.twig", array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce,
             "annonceur" => $this->annonceur,
@@ -179,12 +174,12 @@ class item {
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
 
-            $template = $twig->loadTemplate("add-error.html.twig");
-            echo $template->render(array(
+            $template = $twig->render("add-error.html.twig", array(
                     "breadcrumb" => $menu,
                     "chemin" => $chemin,
                     "errors" => $errors)
             );
+            echo $template;
         }
         // sinon on ajoute à la base et on redirige vers une page de succès
         else{
@@ -208,8 +203,7 @@ class item {
             $this->annonceur->annonce()->save($this->annonce);
 
 
-            $template = $twig->loadTemplate("modif-confirm.html.twig");
-            echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin));
+            echo $twig->render("modif-confirm.html.twig", array("breadcrumb" => $menu, "chemin" => $chemin));
         }
     }
 }

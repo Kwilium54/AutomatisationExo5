@@ -66,3 +66,11 @@ Pour faire tourner le projet :
 - **Token de session** : remplacement de `md5(uniqid(rand(), TRUE))` par `bin2hex(random_bytes(16))` — l'ancienne méthode n'est pas cryptographiquement sûre.
 - **Fonction `isEmail()` en double** : définie dans `addItem` et dans `item`, ce qui pouvait causer une fatal error. Remplacée par `filter_var($email, FILTER_VALIDATE_EMAIL)` dans les deux cas, ce qui est aussi plus fiable.
 
+### Mise à jour des dépendances
+
+- **PHP 7.4 → 8.2** : PHP 7.4 est EOL depuis fin 2022. Mis à jour dans le `Dockerfile`.
+- **Slim 2 → 3** : Slim 2 n'est plus maintenu depuis ~2016. Migration vers Slim 3 : nouvelle syntaxe des routes (`{param}` au lieu de `:param`), signatures des callbacks (`$request, $response, $args`), réécriture des réponses JSON de l'API. Le saut vers Slim 4 aurait nécessité l'introduction d'un container PSR-11 complet, trop invasif pour cette étape.
+- **Twig 1 → 3** : Twig 1 est EOL depuis 2022. Dans tous les controllers, `$twig->loadTemplate('x.html.twig')->render($vars)` remplacé par `$twig->render('x.html.twig', $vars)`.
+- **Eloquent 4.2.9 → ^10.0** : version ~2014. Eloquent 10 requiert PHP 8.1+ — compatible avec notre PHP 8.2. L'API Capsule (utilisée dans `db/connection.php`) est restée stable.
+- **Autoload PSR-0 → PSR-4** : PSR-0 est déprécié depuis 2014. Mis à jour dans `composer.json`, les namespaces correspondaient déjà à la structure de fichiers donc aucun autre changement nécessaire.
+
