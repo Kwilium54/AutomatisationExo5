@@ -1,0 +1,54 @@
+# Notes — Racoin
+
+## Fiche d'identification
+
+- **Nom :** Racoin
+- **But :** site de petites annonces type LeBonCoin, pour la région Grand-Est / Bourgogne
+- **Langages :** PHP, HTML/CSS/JS, SQL
+- **Frameworks :** Slim 2, Twig 1, Eloquent 4.2.9
+- **BDD :** MySQL
+
+---
+
+## Analyse théorique
+
+L'appli permet de déposer, modifier et supprimer des annonces. Pas de compte utilisateur, chaque annonce est protégée par un mot de passe choisi à la création.
+
+Pour faire tourner le projet :
+- `composer install`
+- créer `config/config.ini` (le fichier n'est pas dans le repo, juste un placeholder vide)
+- avoir une base MySQL et importer les fichiers SQL du dossier `sql/`
+- lancer avec `php -S localhost:8080` ou Docker
+
+---
+
+## Maintenance
+
+### Ce qui est obsolète
+
+| Dépendance | Version | Remarque |
+|---|---|---|
+| Slim | 2.x | plus maintenu depuis ~2016, version actuelle : 4 |
+| Twig | ~1.0 | EOL 2022, version actuelle : 3 |
+| Eloquent | 4.2.9 | très vieux (~2014), version actuelle : 11 |
+| Autoload PSR-0 | — | déprécié depuis 2014, remplacé par PSR-4 |
+
+### Todo list
+
+| Tâche | Effort /10 | Impact /10 |
+|---|---|---|
+| Ajouter MySQL dans docker-compose + créer config.ini | 2 | 10 |
+| Corriger bug params inversés dans `item::edit()` | 1 | 8 |
+| Réparer le middleware CSRF (commenté) | 2 | 9 |
+| Remplacer `md5(uniqid(rand()))` par `random_bytes` | 1 | 7 |
+| Corriger clé primaire `ApiKey` (`id_key` → `id_apikey`) | 1 | 6 |
+| Mettre à jour Twig 1 → 3 | 5 | 8 |
+| Mettre à jour Slim 2 → 4 | 8 | 8 |
+| Mettre à jour Eloquent 4 → 11 | 7 | 7 |
+| Passer l'autoload en PSR-4 | 2 | 4 |
+| Dédupliquer la fonction `isEmail()` (définie 2 fois) | 1 | 5 |
+
+---
+
+## Actions réalisées
+
